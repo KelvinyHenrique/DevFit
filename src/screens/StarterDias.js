@@ -1,5 +1,5 @@
-import React from 'react';
-import {UseState, Text} from 'react-native';
+import React, { useState } from 'react';
+import {Text} from 'react-native';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 import DefaultButton from '../components/DefaultButton';
@@ -44,10 +44,36 @@ const Page = (props) => {
         props.navigation.navigate('StarterDias');
     }
 
-    const handleChangeName = (t) => {
-        props.setName(t);
-        props.navigation.setParams({name:t})
+
+    //Novo
+    const [days, setDays] = useState([]);
+
+    const toggleDay = (d) => {
+        let newDays = [...days];
+        if(!newDays.includes(d)) {
+            newDays.push(d);
+        } else {
+            newDays = newDays.filter(i=>i!=d);
+        }
+        setDays(newDays);
+        props.setWorkoutDays(newDays);
+        props.navigation.setParams({days:newDays});
     }
+    
+   /*  const toggleDay = (d) => { 
+        let newWorkoutDays = [...props.workoutDays];
+        if(!props.workoutDays.includes(d)){
+            //Inserir
+            newWorkoutDays.push(d);
+            console.log("Ahhhhhhhhhhhhhhh desgraçaaaaa");
+        } else {
+            //Remover
+            newWorkoutDays = newWorkoutDays.filter(i=>i!=d);
+        }
+            props.setWorkoutDays(newWorkoutDays);
+            alert(props.workoutDays.includes(1));
+    } */
+
 
     let firstName = props.name.split(' ')[0];
 
@@ -57,25 +83,25 @@ const Page = (props) => {
             <HeaderText>Quais <Text style={{fontWeight:'bold'}}>dias da semana</Text> você pretende treinar?</HeaderText>
 
             <DaysArea>
-                <DefaultButton onPress={()=>addDay(1)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
+                <DefaultButton  bgcolor={props.workoutDays.includes(1)?'#FF0000':false} onPress={()=>toggleDay(1)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
                     <Text>Segunda</Text>
                 </DefaultButton>
-                <DefaultButton onPress={()=>addDay(2)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
+                <DefaultButton bgcolor={props.workoutDays.includes(2)?'#FF0000':false}  onPress={()=>toggleDay(2)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
                     <Text>Terça</Text>
                 </DefaultButton>
-                <DefaultButton onPress={()=>addDay(3)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
+                <DefaultButton bgcolor={props.workoutDays.includes(3)?'#FF0000':false}  onPress={()=>toggleDay(3)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
                     <Text>Quarta</Text>
                 </DefaultButton>
-                <DefaultButton onPress={()=>addDay(4)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
+                <DefaultButton bgcolor={props.workoutDays.includes(4)?'#FF0000':false}  onPress={()=>toggleDay(4)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
                     <Text>Quinta</Text>
                 </DefaultButton>
-                <DefaultButton onPress={()=>addDay(5)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
+                <DefaultButton bgcolor={props.workoutDays.includes(5)?'#FF0000':false}  onPress={()=>toggleDay(5)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
                     <Text>Sexta</Text>
                 </DefaultButton>
-                <DefaultButton onPress={()=>addDay(6)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
+                <DefaultButton bgcolor={props.workoutDays.includes(6)?'#FF0000':false}  onPress={()=>toggleDay(6)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
                     <Text>Sábado</Text>
                 </DefaultButton>
-                <DefaultButton onPress={()=>addDay(0)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
+                <DefaultButton bgcolor={props.workoutDays.includes(0)?'#FF0000':false}  onPress={()=>toggleDay(0)}  width={100} style={{marginBottom:20}} underlayColor="#CCC">
                     <Text>Domingo</Text>
                 </DefaultButton>
             </DaysArea>
@@ -98,7 +124,7 @@ Page.navigationOptions = ({navigation}) => {
 
     return {
         title:'',
-        headerRight:<NextButton  title="Próximo" onPress={nextAction}/>,
+        headerRight:() => <NextButton  title="Próximo" onPress={nextAction}/>,
         headerRightContainerStyle: {
             marginRight: 10
         }
@@ -107,14 +133,16 @@ Page.navigationOptions = ({navigation}) => {
 
 const mapStateToProps = (state) => {
     return {
-        name:state.userReducer.name
+        name:state.userReducer.name,
+        workoutDays: state.userReducer.workoutDays
     }
 }
 
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setName:(name) => dispatch({type:'SET_NAME', payload:{name}})
+        setName:(name) => dispatch({type:'SET_NAME', payload:{name}}),
+        setWorkoutDays: (workoutDays)=>dispatch({type:'SET_WORKOUTDAYS', payload: {workoutDays}})
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Page);
