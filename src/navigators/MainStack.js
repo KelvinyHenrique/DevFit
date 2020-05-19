@@ -7,7 +7,7 @@ import StarterStack from './StarterStack';
 
 const MainStack = createStackNavigator({
     Preload,
-    StarterStack,
+    StarterStack
     //AppTab
 }, {
     initialRouteName:'Preload',
