@@ -76,7 +76,7 @@ Page.navigationOptions = ({navigation}) => {
 
     return {
         title:'',
-        headerRight:<NextButton  title="Próximo" onPress={nextAction}/>,
+        headerRight:() => <NextButton  title="Próximo" onPress={nextAction}/>,
         headerRightContainerStyle: {
             marginRight: 10
         }

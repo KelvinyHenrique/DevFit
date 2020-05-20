@@ -62,7 +62,7 @@ const Page = (props) => {
 }
 
 Page.navigationOptions = {
-    header: null
+    headerShown: false
 }
 
 export default Page;
