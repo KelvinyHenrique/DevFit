@@ -3,6 +3,9 @@ import {Text, Button} from 'react-native';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 import workoutJson from '../presetWorkouts.json';
+import Workout from '../components/Workout';
+
+
 const Container = styled.SafeAreaView`
     flex: 1;
     alignItems:center;
@@ -49,11 +52,10 @@ const Page = (props) => {
 
     <WorkoutList 
     data={workoutJson} 
-    renderItem={({item}) => <Text>{item.name}</Text>} 
+    renderItem={({item}) => <Workout data={item}/>} 
     keyExtractor={item=>item.id}
-    />
+    />  
         <HeaderText>Você pode alterar isso a qualquer momento.</HeaderText>
-        
     </Container>
     );
 }
