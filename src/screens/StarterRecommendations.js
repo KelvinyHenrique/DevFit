@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Text, Button} from 'react-native';
+import {StackActions, NavigationActions} from 'react-navigation';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 import workoutJson from '../presetWorkouts.json';
@@ -42,9 +43,14 @@ const Page = (props) => {
     props.navigation.setParams({myWorkouts:props.myWorkouts})
     }, [props.myWorkouts]);
     
-    useEffect(() => {
-        
-    })
+   const addWorkout = (item) => {
+      if(props.myWorkouts.findIndex(i=>i.id==item.id) < 0) {
+        props.addWorkout(item);
+      } else {
+        props.delWorkout(item);
+      }
+   }
+
     return (
         <Container>
         <HeaderText>Opções de treinos pré-criados com base no seu nível</HeaderText>
@@ -52,7 +58,10 @@ const Page = (props) => {
 
     <WorkoutList 
     data={workoutJson} 
-    renderItem={({item}) => <Workout data={item}/>} 
+    renderItem={({item}) => <Workout 
+    data={item}
+    addAction={() => addWorkout(item)}
+    />} 
     keyExtractor={item=>item.id}
     />  
         <HeaderText>Você pode alterar isso a qualquer momento.</HeaderText>
@@ -64,20 +73,19 @@ Page.navigationOptions = ({navigation}) => {
     
     let btnNext = 'Ignorar';
     if(navigation.state.params && navigation.state.params.myWorkouts.length > 0) {
-        let btnNext = 'Concluir';
+         btnNext = 'Concluir';
     }
 
     const NextButton = (props) => {
 
-      
-        const nextAction = () => {
-            /* if(!props.navigation.state.params || !props.navigation.state.params.level) {
-                alert("Você precisa escolher uma opção");
-                return;
-            }
-            props.navigation.navigate('StarterRecommendations'); */
+        const nextAction = ()  => {
+            navigation.dispatch(StackActions.reset({
+                index:0,
+                actions:[
+                    NavigationActions.navigate({routeName:'AppTab'})
+                ]
+            }))   
         }
-    
         return (
             <Button title={btnNext} onPress={nextAction} />
         );
@@ -102,7 +110,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-         setLevel: (level)=>dispatch({type:'SET_LEVEL', payload: {level}})
-    }
+        addWorkout:(workout)=>dispatch({type:'ADD_WORKOUT', payload:{workout}}),
+        delWorkout:(workout)=>dispatch({type:'DEL_WORKOUT', payload:{workout}})
+        }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Page);
