@@ -47,11 +47,11 @@ const Page = (props) => {
         <Container>
             <HomeMonthScroll
                 selectedMonth={selectedMonth}
-                selectedMonth={setSelectedMonth}
+                setSelectedMonth={setSelectedMonth}
             />
             <HomeDaysScrool />
             <HomeDayStatus />
-
+            <Text>Mês: {selectedMonth}</Text>
             <Legend>
                 <LegendText>Legenda:</LegendText>
 
