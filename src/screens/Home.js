@@ -4,14 +4,13 @@ import { StackActions, NavigationActions } from 'react-navigation';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 
+import HomeMonthScroll from '../components/HomeMonthScroll';
+import HomeDaysScrool from '../components/HomeDaysScrool';
+import HomeDayStatus from '../components/HomeDayStatus';
+
 
 const Container = styled.SafeAreaView`
-    flex: 1;
     alignItems:center;
-    backgroundColor:#FFF;
-    paddingLeft:30px;
-    paddingRight: 30px; 
-    paddingTop:50px;
 
 `;
 
@@ -20,7 +19,9 @@ const Page = (props) => {
 
     return (
         <Container>
-
+            <HomeMonthScroll />
+            <HomeDaysScrool />
+            <HomeDayStatus />
         </Container>
     );
 }
