@@ -40,10 +40,15 @@ const LegendBox = styled.View`
 
 const Page = (props) => {
 
+    let today = new Date();
+    const [selectedMonth, setSelectedMonth] = useState(today.getMonth());
 
     return (
         <Container>
-            <HomeMonthScroll />
+            <HomeMonthScroll
+                selectedMonth={selectedMonth}
+                selectedMonth={setSelectedMonth}
+            />
             <HomeDaysScrool />
             <HomeDayStatus />
 
