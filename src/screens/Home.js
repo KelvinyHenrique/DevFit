@@ -60,6 +60,7 @@ const Page = (props) => {
             />
             <HomeDayStatus />
             <Text>Mês: {selectedMonth}</Text>
+            <Text>Dia: {selectedDay}</Text>
             <Legend>
                 <LegendText>Legenda:</LegendText>
 
