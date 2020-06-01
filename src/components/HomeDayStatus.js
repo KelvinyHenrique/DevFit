@@ -19,11 +19,11 @@ const BallonArea = styled.View`
     padding:20px;
     backgroundColor:#dbd9d9;
     borderRadius:10px;
-    min-height:100px;
 `;
 
 const BalloonBigText = styled.Text`
     fontSize:15px;
+    alignSelf:center;
 `;
 
 const ButtonText = styled.Text`
@@ -33,6 +33,13 @@ const ButtonText = styled.Text`
 
 const BalloonText = styled.Text`
     fontSize:13px;
+    alignSelf:center;
+    marginTop:10px;
+`;
+
+
+const Strong = styled.Text`
+    fontWeight:bold;
 `;
 
 export default (props) => {
@@ -57,7 +64,7 @@ export default (props) => {
     let isFuture = false;
     let isDone = false;
     
-    if(props.workoutDays.includes(thisDate.getDay())) {
+    if(!props.workoutDays.includes(thisDate.getDay())) {
         dayOff =  true;
     } else if(thisDate.getTime() > today.getTime()) {
         isFuture = true;
@@ -73,6 +80,15 @@ export default (props) => {
         isToday = true;
     }
 
+    const setDone = () => {
+        props.addProgress( thisFormated )
+    }
+
+    const setUndone = () => {
+        props.dellProgress( thisFormated )
+    }
+
+
     return (
         <>
             <BalloonTriangle></BalloonTriangle>
@@ -86,15 +102,15 @@ export default (props) => {
                 {!dayOff && !isFuture && isDone &&
                     <>
                     <BalloonBigText><Strong>Parabéns</Strong>, você treinou!</BalloonBigText>
-                    <DefaultButton>
+                    <DefaultButton onPress={setUndone} bgColor="#4AC44E" style={{marginTop:20}}>
                         <ButtonText>DESMARCAR</ButtonText>
                     </DefaultButton>
                     </>
                 }
                 {!dayOff && !isFuture && !isDone && !isToday &&
                     <>
-                    <BalloonBigText>Fraco! Você falhou neste dia.</BalloonBigText>
-                    <DefaultButton >
+                    <BalloonBigText><Strong>Fraco!</Strong> Você falhou neste dia.</BalloonBigText>
+                    <DefaultButton onPress={setDone} bgColor="#4AC44E" style={{marginTop:20}}>
                         <ButtonText>MARCAR COMO FEITO</ButtonText>
                     </DefaultButton>
                     </>
@@ -103,7 +119,7 @@ export default (props) => {
                     <>
                     <BalloonBigText>HOJE TEM TREINO 🚀</BalloonBigText>
                     <BalloonText>Você tem ... pra treinar</BalloonText>
-                    <DefaultButton>
+                    <DefaultButton onPress={props.gotToWorkout} bgColor="#4AC44E" style={{marginTop:20}}>
                         <ButtonText>INICIAR TREINO</ButtonText>
                     </DefaultButton>
                     </>
