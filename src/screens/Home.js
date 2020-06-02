@@ -65,10 +65,10 @@ const Page = (props) => {
 
                 dailyProgress={props.dailyProgress}
                 workoutDays={props.workoutDays}
-
+                
                 addProgress={props.addProgress}
                 delProgress={props.delProgress}
-                goToWorkout={()=> props.navigation.navigate('WorkoutStack')}
+                goToWorkout={()=>props.navigation.navigate('WorkoutStack')}
 
             />
 
@@ -153,7 +153,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         addProgress:(date)=>dispatch({type:'ADD_PROGRESS', payload:{date}}),
-        addProgress:(date)=>dispatch({type:'DEL_PROGRESS', payload:{date}}),
+        delProgress:(date)=>dispatch({type:'DEL_PROGRESS', payload:{date}}),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Page);

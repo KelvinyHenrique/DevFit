@@ -34,17 +34,16 @@ export default (state = initialState, action) => {
             return { ...state, myWorkouts };
             break;
 
-        case 'ADD_PROGRESS':
-            if(!dailyProgress.includes(action.payload.date)) {
-                dailyProgress.push(action.payload.date);
-            }
-            return {...state, dailyProgress};
-            break;
-
-        case 'DEL_PROGRESS':
-            dailyProgress = dailyProgress.filter(i=>i!=action.payload.date);
-            return {...state, dailyProgress};
-            break;
+            case 'ADD_PROGRESS':
+                if(!dailyProgress.includes(action.payload.date)) {
+                    dailyProgress.push(action.payload.date);
+                }
+                return {...state, dailyProgress};
+                break;
+            case 'DEL_PROGRESS':
+                dailyProgress = dailyProgress.filter(i=>i!=action.payload.date);
+                return {...state, dailyProgress};
+                break; 
     }
 
     return state;

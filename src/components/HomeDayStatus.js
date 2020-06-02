@@ -85,8 +85,39 @@ export default (props) => {
     }
 
     const setUndone = () => {
-        props.dellProgress( thisFormated )
+        props.delProgress( thisFormated )
     }
+
+    const [timeLeft, setTimeLeft] = useState('');
+
+    useEffect(() => {
+        const timerFunction = () => {
+            let now = Date.now();
+            let endToday = new Date();
+
+            endToday.setHours(23);
+            endToday.setMinutes(59);
+            endToday.setSeconds(59);
+            endToday = endToday.getTime();
+
+            let diff = endToday - now;
+
+            let h = Math.floor(diff / (1000*60*60));
+            let m = Math.floor(diff / (1000*60) - (h * 60));
+            let s = Math.floor((diff /1000) - (m*60) - ((h*60)*60) );
+            
+            h = h<10?'0'+h:h;
+            m = m<10?'0'+m:m;
+            s = s<10?'0'+s:s;
+
+            setTimeLeft(`${h}h ${m}m ${s}s`);
+        }
+
+        let timer = setInterval(timerFunction, 1000);
+        timerFunction();
+
+        return () =>clearInterval(timer);
+    }, []);
 
 
     return (
@@ -118,7 +149,7 @@ export default (props) => {
                 {!dayOff && !isFuture && !isDone && isToday &&
                     <>
                     <BalloonBigText>HOJE TEM TREINO 🚀</BalloonBigText>
-                    <BalloonText>Você tem ... pra treinar</BalloonText>
+                    <BalloonText>Você tem {timeLeft} pra treinar</BalloonText>
                     <DefaultButton onPress={props.gotToWorkout} bgColor="#4AC44E" style={{marginTop:20}}>
                         <ButtonText>INICIAR TREINO</ButtonText>
                     </DefaultButton>
