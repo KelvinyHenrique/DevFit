@@ -64,7 +64,11 @@ export default (props) => {
     }
 
     const editWorkout = () => {
+        props.editAction();
+    }
 
+    const delWorkout = () => {
+        props.delAction();
     }
 
 
