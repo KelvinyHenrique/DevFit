@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import useMuscleImage from './useMuscleImage';
+import { SwipeRow } from 'react-native-swipe-list-view';
 
 
 const ExerciseItemArea = styled.TouchableHighlight`
@@ -41,22 +42,40 @@ const ExerciseDetails = styled.Text`
     color:#999;
 `;
 
+const ExerciseSwipe = styled.TouchableHighlight`
+    height:50px;
+    backgroundColor:#FF0000;
+    justifyContent:center;
+`;
+
+const ExerciseSwipeIcon = styled.Image`
+    width:20px;
+    height:20px;
+    marginLeft:15px;
+`;
 
 
 export default (props) => {
     return (
-        <ExerciseItemArea>
-            <>
-                <ExerciseMuscleArea>
-                    <ExerciseMuscleImage source={useMuscleImage(props.data.muscle)} />
-                </ExerciseMuscleArea>
-                <ExerciseInfo>
-                    <ExerciseName>{props.data.name}</ExerciseName>
-                    <ExerciseDetails>
-                        {`${props.data.sets} séries - ${props.data.reps} rep ${props.data.load?`- ${props.data.load} kg`:''}`}
-                    </ExerciseDetails>
-                </ExerciseInfo>
-            </>
-        </ExerciseItemArea>
+
+        <SwipeRow leftOpenValue={50}  disableLeftSwipe={true}>
+            <ExerciseSwipe onPress={props.delAction} underlayColor="#FF0000">
+                <ExerciseSwipeIcon source={require('../assets/trash-white.png')} />
+            </ExerciseSwipe>
+
+            <ExerciseItemArea onPress={props.editAction} underlayColor="#FFF">
+                <>
+                    <ExerciseMuscleArea>
+                        <ExerciseMuscleImage source={useMuscleImage(props.data.muscle)} />
+                    </ExerciseMuscleArea>
+                    <ExerciseInfo>
+                        <ExerciseName>{props.data.name}</ExerciseName>
+                        <ExerciseDetails>
+                            {`${props.data.sets} séries - ${props.data.reps} rep ${props.data.load ? `- ${props.data.load} kg` : ''}`}
+                        </ExerciseDetails>
+                    </ExerciseInfo>
+                </>
+            </ExerciseItemArea>
+        </SwipeRow>
     );
 }

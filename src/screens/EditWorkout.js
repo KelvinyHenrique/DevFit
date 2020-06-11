@@ -42,6 +42,19 @@ const Page = (props) => {
     const [id, setId] = useState(workout?workout.id:'');
     const [exercises, setExercises] = useState(workout?workout.exercises:[]);
 
+    const editExercise = (exercise) => {
+        alert("Edit");
+    }
+
+    const delExercise = (exercise) => {
+
+        let newExercises = [...exercises];
+
+        newExercises = newExercises.filter(i=>i.id!=exercise.id);
+
+       setExercises(newExercises);
+    }
+
     return (
         <Container>
           <NameInput 
@@ -64,6 +77,8 @@ const Page = (props) => {
                     renderItem={({item})=>
                         <ExerciseItemEdit
                             data={item}
+                            editAction={()=>editExercise(item)}
+                            delAction={()=>delExercise(item)}
                         />
                     }
                     keyExtractor={item=>item.name}
