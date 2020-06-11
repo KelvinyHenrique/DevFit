@@ -60,13 +60,25 @@ const ModalMuscle = styled.TouchableHighlight`
     justifyContent:center;
     alignItems:center;
     marginRight:10px;
-    opacity:${props=>props.opacity};
+    opacity:${props => props.opacity};
 `;
 
 const ModalMuscleImage = styled.Image`
     width:35px;
     height:35px;
 `;
+
+const ModalExtra = styled.View`
+    width:100%;
+    flexDirection:row;
+    justifyContent:space-between;
+    marginBottom:20px;
+`;
+const ModalExtraItem = styled.View`
+    alignItems:center;
+`;
+
+
 
 
 
@@ -82,7 +94,7 @@ const Page = (props) => {
     const [modalName, setModalName] = useState('');
     const [modalMuscle, setModalMuscle] = useState('');
     const [modalSets, setModalSets] = useState('');
-    const [modalLoaad, setModalLoad] = useState('');
+    const [modalLoad, setModalLoad] = useState('');
     const [modalReps, setModalReps] = useState('');
 
 
@@ -116,13 +128,90 @@ const Page = (props) => {
             <CustomModal visible={modalVisible} closeAction={() => { setModalVisible(false) }} >
                 <ModalLabel>Músculo de Foco</ModalLabel>
                 <ModalMucles horizontal={true} showsHorizontalScrollIndicator={false}>
-                    <ModalMuscle opacity={modalMuscle=='abs'?1:0.3}>
+                    <ModalMuscle
+                        opacity={modalMuscle == 'abs' ? 1 : 0.3}
+                        onPress={() => setModalMuscle('abs')}
+                        underlayColor="transparent">
                         <ModalMuscleImage source={require('../assets/muscles/abs.png')} />
                     </ModalMuscle>
-                </ModalMucles>
-                <ModalLabel>Nome do exercício</ModalLabel>
-                <ModalInput value={modalName} onChangeText={e=>setModalName(e)} />
 
+                    <ModalMuscle
+                        opacity={modalMuscle == 'back' ? 1 : 0.3}
+                        onPress={() => setModalMuscle('back')}
+                        underlayColor="transparent">
+                        <ModalMuscleImage source={require('../assets/muscles/back.png')} />
+                    </ModalMuscle>
+
+                    <ModalMuscle
+                        opacity={modalMuscle == 'biceps' ? 1 : 0.3}
+                        onPress={() => setModalMuscle('biceps')}
+                        underlayColor="transparent">
+                        <ModalMuscleImage source={require('../assets/muscles/biceps.png')} />
+                    </ModalMuscle>
+
+
+                    <ModalMuscle
+                        opacity={modalMuscle == 'chest' ? 1 : 0.3}
+                        onPress={() => setModalMuscle('chest')}
+                        underlayColor="transparent">
+                        <ModalMuscleImage source={require(
+
+                            '../assets/muscles/chest.png')} />
+                    </ModalMuscle>
+
+                    <ModalMuscle
+                        opacity={modalMuscle == 'gluteos' ? 1 : 0.3}
+                        onPress={() => setModalMuscle('gluteos')}
+                        underlayColor="transparent">
+                        <ModalMuscleImage source={require('../assets/muscles/gluteos.png')} />
+                    </ModalMuscle>
+
+                    <ModalMuscle
+                        opacity={modalMuscle == 'legs' ? 1 : 0.3}
+                        onPress={() => setModalMuscle('legs')}
+                        underlayColor="transparent">
+                        <ModalMuscleImage source={require('../assets/muscles/legs.png')} />
+                    </ModalMuscle>
+
+
+                    <ModalMuscle
+                        opacity={modalMuscle == 'shoulders' ? 1 : 0.3}
+                        onPress={() => setModalMuscle('shoulders')}
+                        underlayColor="transparent">
+                        <ModalMuscleImage source={require('../assets/muscles/shoulders.png')} />
+                    </ModalMuscle>
+
+                    <ModalMuscle
+                        opacity={modalMuscle == 'triceps' ? 1 : 0.3}
+                        onPress={() => setModalMuscle('triceps')}
+                        underlayColor="transparent">
+                        <ModalMuscleImage source={require('../assets/muscles/triceps.png')} />
+                    </ModalMuscle>
+                </ModalMucles>
+
+                <ModalLabel>Nome do exercício</ModalLabel>
+                <ModalInput value={modalName} onChangeText={e => setModalName(e)} />
+
+                <ModalExtra>
+                    <ModalExtraItem>
+                        <ModalLabel>Séries</ModalLabel>
+                        <ModalInput keyboardType="numeric" value={modalSets} onChangeText={e => setModalSets(e)} />
+                    </ModalExtraItem>
+
+                    <ModalExtraItem>
+                        <ModalLabel>Repetições</ModalLabel>
+                        <ModalInput keyboardType="numeric" value={modalReps} onChangeText={e => setModalReps(e)} />
+                    </ModalExtraItem>
+
+                    <ModalExtraItem>
+                        <ModalLabel>Carga</ModalLabel>
+                        <ModalInput keyboardType="numeric" value={modalLoad} onChangeText={e => setModalLoad(e)} />
+                    </ModalExtraItem>
+                </ModalExtra>
+                
+                <DefaultButton bgColor="#4AC34E">
+                    <ButtonText>Salvar</ButtonText>
+                </DefaultButton>
             </CustomModal>
 
             <NameInput
@@ -136,8 +225,6 @@ const Page = (props) => {
                     <ButtonText>
                         Adicionar Exercício
                 </ButtonText>
-
-
                 </DefaultButton>
 
                 <ExercisesList

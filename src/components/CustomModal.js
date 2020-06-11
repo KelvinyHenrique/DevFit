@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal } from 'react-native';
+import { Modal, Platform } from 'react-native';
 import styled from 'styled-components/native';
 
 
@@ -31,7 +31,7 @@ const ModalBody = styled.View``;
 export default (props) => {
     return (
         <Modal visible={props.visible} transparent={true} animationType="fade">
-            <ModalBoxArea>
+            <ModalBoxArea behavior={Platform.OS=='ios'?'padding':null} >
                 <ModalBox>
                     <ModalClose onPress={props.closeAction} underlayColor="transparent">
                         <CloseText>X</CloseText>
