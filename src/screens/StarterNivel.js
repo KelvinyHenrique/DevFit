@@ -37,10 +37,10 @@ const Page = (props) => {
 
     switch(props.workoutDays.length) {
         case 1: 
-            funnyPhrase = 'Só um dias não mais adianter muito, mas...';
+            funnyPhrase = 'Só um dia não vai adiantar muito, mas...';
             break;
         case 2:
-            funnyPhrase = 'Dois dias eu acho pouco, mas quem sou eu para de julgar?';
+            funnyPhrase = 'Dois dias eu acho pouco, mas quem sou eu para te julgar?';
             break;
         case 3:
             funnyPhrase = 'Legal, 3 dias dá pro gasto...';
