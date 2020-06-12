@@ -110,7 +110,7 @@ export default (props) => {
                 }
 
                 {props.goAction &&
-                    <WorkoutButton onPress={() => delWorkout()} underlayColor="transparent">
+                    <WorkoutButton onPress={() => goWorkout()} underlayColor="transparent">
                         <WorkoutButtonImage source={require('../assets/play-black.png')} />
                     </WorkoutButton>
                 }
