@@ -150,7 +150,7 @@ export default (props) => {
                     <>
                     <BalloonBigText>HOJE TEM TREINO 🚀</BalloonBigText>
                     <BalloonText>Você tem {timeLeft} pra treinar</BalloonText>
-                    <DefaultButton onPress={props.gotToWorkout} bgColor="#4AC44E" style={{marginTop:20}}>
+                    <DefaultButton onPress={props.goToWorkout} bgColor="#4AC44E" style={{marginTop:20}}>
                         <ButtonText>INICIAR TREINO</ButtonText>
                     </DefaultButton>
                     </>

@@ -55,25 +55,62 @@ const Page = (props) => {
 
     const [exercises, setExercises] = useState([...workout.exercises]);
 
+    const checkAction = (item, index) => {
+        let newExercises = [...exercises];
+        if (!item.done) {
+            newExercises[index].done = true;
+        } else {
+            newExercises[index].done = false;
+        }
+        setExercises(newExercises);
+
+        checkWorkout();
+    }
+
+    const checkWorkout = () => {
+        if (exercises.every(i => i.done)) {
+            alert("PARABÉNS! Você finalizou!");
+
+            let today = new Date();
+            let thisYear = today.getFullYear();
+            let thisMonth = today.getMonth() + 1;
+            let thisDay = today.getDate();
+            thisMonth = (thisMonth < 10) ? '0' + thisMonth : thisMonth;
+            thisDay = (thisDay < 10) ? '0' + thisDay : thisDay;
+            let dFormated = `${thisYear}-${thisMonth}-${thisDay}`;
+
+            props.addProgress(dFormated);
+            props.setLastWorkout(workout.id);
+            props.navigation.dispatch(StackActions.reset({
+                index: 0,
+                actions: [
+                    NavigationActions.navigate({ routeName: 'AppTab' })
+                ]
+            }));
+        }
+    }
+
     return (
         <Container source={require('../assets/fitness.jpg')}>
-            <StatusBar  barStyle="light-content"/>
+            <StatusBar barStyle="light-content" />
             <SafeArea>
                 <WorkoutHeader>
-                <WorkoutTitle>{workout.name}</WorkoutTitle>
-                    <WorkoutClose onPress={()=>props.navigation.goBack()} underlayColor="transparent">
+                    <WorkoutTitle>{workout.name}</WorkoutTitle>
+                    <WorkoutClose onPress={() => props.navigation.goBack()} underlayColor="transparent">
                         <WorkoutCloseText>X</WorkoutCloseText>
                     </WorkoutClose>
                 </WorkoutHeader>
 
-                <WorkoutList 
-                data={exercises}
-                renderItem={({item})=> 
-                    <ExerciseItem 
-                        data={item}
-                    />
-                }
-                keyExtractor={item=>item.id.toString()}
+                <WorkoutList
+                    data={exercises}
+                    renderItem={({ item, index }) =>
+                        <ExerciseItem
+                            data={item}
+                            index={index}
+                            checkAction={() => checkAction(item, index)}
+                        />
+                    }
+                    keyExtractor={item => item.id.toString()}
                 />
             </SafeArea>
         </Container>
@@ -83,7 +120,7 @@ const Page = (props) => {
 Page.navigationOptions = ({ navigation }) => {
 
     return {
-        headerShown:false
+        headerShown: false
     }
 }
 
@@ -97,6 +134,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        addProgress:(date)=>dispatch({type:'ADD_PROGRESS', payload:{date}}),
+        setLastWorkout:(id)=>dispatch({type:'SET_LASTWORKOUT', payload:{id}})
     }
-}
+}   
 export default connect(mapStateToProps, mapDispatchToProps)(Page);
