@@ -24,13 +24,13 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 
-Projedo desenvolvido para treinar minhas habilidades em javascript, todo o layout foi montado com js, com todas as funcionalidades como adicionar no carrinho, soma dos produtos é responsividade
+Projeto desenvolvido para colocar em prática  todas as técnicas aprendidas durante o curso da b7web de react native, foram aplicados vários conceitos durante o desenvolvimento da aplicação, feito totalmente offline com redux, o projeto consiste em um app para gerenciar treinos diários é ver seu progresso durante os dias.
 
 ## 📄 Instalação
 
- <h3>Frontend | Web</h3>
+ <h3>MOBILE</h3>
  
- - Basta abrir o arquivo `index.html` que está no diretório inicial do projeto 
+ - 
 
 ## 🤔 Como contribuir
 
